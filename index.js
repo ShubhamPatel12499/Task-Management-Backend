@@ -17,7 +17,7 @@ app.use("/users",userRouter)
 app.use("/tasks",taskRouter)
 
 
-app.listen(8080,async()=>{
+app.listen(process.env.port,async()=>{
     try{
         await connection
         console.log("Connected to DB")
@@ -26,5 +26,5 @@ app.listen(8080,async()=>{
       console.log("Not connected to DB")
       console.log(err)
     }
-    console.log(`Server is running on ${8080}`)
+    console.log(`Server is running on ${process.env.port}`)
 })
