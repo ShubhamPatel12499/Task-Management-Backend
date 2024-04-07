@@ -51,7 +51,7 @@ taskRouter.get('/download/:status', async (req, res) => {
     }
 });
 
-taskRouter.post("/addTask", authenticate, Validator, async (req, res) => {
+taskRouter.post("/addTask", Validator, async (req, res) => {
     const payload = req.body;
     try {
         const newTask = new taskModel(payload);
