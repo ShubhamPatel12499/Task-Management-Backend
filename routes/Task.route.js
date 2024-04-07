@@ -77,6 +77,32 @@ taskRouter.post("/addTask", Validator, async (req, res) => {
     }
 });
 
+ taskRouter.patch('/updateTask/:taskId', async (req, res) => {
+    const { taskId } = req.params;
+    const { taskName, date, status } = req.body;
+
+    try {
+      const updatedTask = await taskModel.findByIdAndUpdate(taskId, { taskName, date, status }, { new: true });
+      res.status(200).json(updatedTask);
+    } catch (error) {
+      console.error('Error updating task:', error);
+      res.status(500).send('Internal server error');
+    }
+});
+
+taskRouter.delete('/delete/:taskId', async (req, res) => {
+  const { taskId } = req.params;
+
+  try {
+    await taskModel.findByIdAndDelete(taskId);
+
+    res.status(200).send('Task deleted successfully');
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).send('Internal server error');
+  }
+});
+
 
 module.exports = {
     taskRouter
